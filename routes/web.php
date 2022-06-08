@@ -23,7 +23,12 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
+Route::resources([
+    'story' => \App\Http\Controllers\StoryController::class,
+    'book' => \App\Http\Controllers\BookController::class,
+    'author' => \App\Http\Controllers\AuthorController::class,
+    'bookshelf' => \App\Http\Controllers\BookShelfController::class,
+]);
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
