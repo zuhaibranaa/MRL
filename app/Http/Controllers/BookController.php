@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+<<<<<<< HEAD
 use Inertia\Inertia;
+=======
+>>>>>>> fc5fe98cd8412b437fd55c923985f2cb716c78ac
 
 class BookController extends Controller
 {
@@ -16,7 +19,11 @@ class BookController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         return Inertia::render('resources\js\Pages\Books');
+=======
+        //
+>>>>>>> fc5fe98cd8412b437fd55c923985f2cb716c78ac
     }
 
     /**
