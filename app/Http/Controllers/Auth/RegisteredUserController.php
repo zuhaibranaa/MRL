@@ -21,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register',[
+            'auth' => auth()->user(),
+        ]);
     }
 
     /**
@@ -34,14 +36,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
+            'DOB' => 'required',
+            'gender' => 'required',
+            'image' => 'required|mimes:jpg,bmp,png',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->move(public_path().'/images/', $filename);
+            $userimage = $filename;
+        }
 
         $user = User::create([
             'name' => $request->name,
+            'DOB' => $request->DOB,
+            'gender' => $request->gender,
+            'image' => $userimage,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

@@ -15,9 +15,13 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+        {{-- <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script> --}}
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-slate-50">
+        <script>
+            var base_url = route('/');
+        </script>
         @inertia
 
         @env ('local')

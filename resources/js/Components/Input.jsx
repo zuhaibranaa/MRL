@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 export default function Input({
-    type = 'text',
+    type = "text",
     name,
+    ref,
     value,
+    id,
     className,
     autoComplete,
     required,
@@ -23,12 +25,13 @@ export default function Input({
             <input
                 type={type}
                 name={name}
+                id={id}
                 value={value}
                 className={
                     `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
                     className
                 }
-                ref={input}
+                ref={ref ? ref : input}
                 autoComplete={autoComplete}
                 required={required}
                 onChange={(e) => handleChange(e)}
