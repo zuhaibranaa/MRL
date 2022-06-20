@@ -23,7 +23,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'auth' => auth()->user(),
     ]);
-})->name('/');
+});
 Route::resources([
     'story' => \App\Http\Controllers\StoryController::class,
     'book' => \App\Http\Controllers\BookController::class,
