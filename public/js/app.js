@@ -4788,34 +4788,33 @@ var Trigger = function Trigger(_ref2) {
 
 var Content = function Content(_ref3) {
   var _ref3$align = _ref3.align,
-      align = _ref3$align === void 0 ? 'right' : _ref3$align,
+      align = _ref3$align === void 0 ? "right" : _ref3$align,
       _ref3$width = _ref3.width,
-      width = _ref3$width === void 0 ? '48' : _ref3$width,
+      width = _ref3$width === void 0 ? "48" : _ref3$width,
       _ref3$contentClasses = _ref3.contentClasses,
-      contentClasses = _ref3$contentClasses === void 0 ? 'py-1 bg-white' : _ref3$contentClasses,
+      contentClasses = _ref3$contentClasses === void 0 ? "py-1 bg-white" : _ref3$contentClasses,
       children = _ref3.children;
 
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DropDownContext),
       open = _useContext2.open,
       setOpen = _useContext2.setOpen;
 
-  var alignmentClasses = 'origin-top';
+  var alignmentClasses = "origin-top";
 
-  if (align === 'left') {
-    alignmentClasses = 'origin-top-left left-0';
-  } else if (align === 'right') {
-    alignmentClasses = 'origin-top-right right-0';
+  if (align === "left") {
+    alignmentClasses = "origin-top-left left-0";
+  } else if (align === "right") {
+    alignmentClasses = "origin-top-right right-0";
   }
 
-  var widthClasses = '';
+  var widthClasses = "";
 
-  if (width === '48') {
-    widthClasses = 'w-48';
+  if (width === "48") {
+    widthClasses = "w-48";
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_3__.Transition, {
-      as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
       show: open,
       enter: "transition ease-out duration-200",
       enterFrom: "transform opacity-0 scale-95",
@@ -4823,7 +4822,7 @@ var Content = function Content(_ref3) {
       leave: "transition ease-in duration-75",
       leaveFrom: "transform opacity-100 scale-100",
       leaveTo: "transform opacity-0 scale-95",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "absolute z-50 mt-2 rounded-md shadow-lg ".concat(alignmentClasses, " ").concat(widthClasses),
         onClick: function onClick() {
           return setOpen(false);
@@ -4840,16 +4839,18 @@ var Content = function Content(_ref3) {
 var DropdownLink = function DropdownLink(_ref4) {
   var href = _ref4.href,
       _ref4$method = _ref4.method,
-      method = _ref4$method === void 0 ? 'post' : _ref4$method,
+      method = _ref4$method === void 0 ? "post" : _ref4$method,
       _ref4$as = _ref4.as,
-      as = _ref4$as === void 0 ? 'a' : _ref4$as,
+      as = _ref4$as === void 0 ? "button" : _ref4$as,
       children = _ref4.children;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    href: href,
-    method: method,
-    as: as,
-    className: "block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
-    children: children
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
+      href: href,
+      method: method,
+      as: as,
+      className: "block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
+      children: children
+    })
   });
 };
 
