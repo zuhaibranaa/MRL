@@ -5,8 +5,25 @@ import { Dropdown, Avatar } from "flowbite-react";
 
 function Navbar({ auth }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    function getAuthRoutes(auth) {
+        if (auth) {
+            return (
+                <>
+                    <li>
+                        <InertiaLink
+                            href="/"
+                            aria-label="Books pricing"
+                            title="Books pricing"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                            My BookShelf
+                        </InertiaLink>
+                    </li>
+                </>
+            );
+        }
+    }
     function validateAuth(auth) {
-        console.log(auth);
         if (auth) {
             return (
                 <>
@@ -121,26 +138,7 @@ function Navbar({ auth }) {
                                     Stories
                                 </InertiaLink>
                             </li>
-                            <li>
-                                <InertiaLink
-                                    href="/"
-                                    aria-label="Books pricing"
-                                    title="Books pricing"
-                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                >
-                                    Pricing
-                                </InertiaLink>
-                            </li>
-                            <li>
-                                <InertiaLink
-                                    href="/"
-                                    aria-label="About us"
-                                    title="About us"
-                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                >
-                                    About us
-                                </InertiaLink>
-                            </li>
+                            {getAuthRoutes(auth)}
                         </ul>
                     </div>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
@@ -306,26 +304,7 @@ function Navbar({ auth }) {
                                                     Stories
                                                 </InertiaLink>
                                             </li>
-                                            <li>
-                                                <InertiaLink
-                                                    href="/"
-                                                    aria-label="Books pricing"
-                                                    title="Books pricing"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Pricing
-                                                </InertiaLink>
-                                            </li>
-                                            <li>
-                                                <InertiaLink
-                                                    href="/"
-                                                    aria-label="About us"
-                                                    title="About us"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    About us
-                                                </InertiaLink>
-                                            </li>
+                                            {getAuthRoutes(auth)}
                                             <li>
                                                 <form>
                                                     <label

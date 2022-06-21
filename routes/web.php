@@ -16,22 +16,22 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('HomePage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
         'auth' => auth()->user(),
     ]);
-});
+})->name('/');
 Route::resources([
     'story' => \App\Http\Controllers\StoryController::class,
     'book' => \App\Http\Controllers\BookController::class,
     'author' => \App\Http\Controllers\AuthorController::class,
     'bookshelf' => \App\Http\Controllers\BookShelfController::class,
 ]);
-Route::get('/dashboard', function () {
-    return Inertia::render('HomePage');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('HomePage');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
