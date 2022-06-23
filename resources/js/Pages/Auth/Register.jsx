@@ -60,7 +60,7 @@ export default function Register(props) {
 
     return (
         <>
-            <Navbar props={props.auth} />
+            <Navbar props={{ ...props }} />
             <Guest>
                 <Head title="Register" />
 

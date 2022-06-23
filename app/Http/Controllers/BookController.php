@@ -16,6 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
+        // return asset('images/pp.jpg');
         $books = Book::all();
         return Inertia::render('Books',[
             'auth' => auth()->user(),
@@ -30,7 +31,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('CreateBook');
     }
 
     /**

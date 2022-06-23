@@ -2,9 +2,19 @@ import React from "react";
 import { useState, useContext } from "react";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import { Dropdown, Avatar } from "flowbite-react";
+import SearchBar from "./SearchBar";
 
-function Navbar({ auth }) {
+function Navbar({ props }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    let auth = props.auth;
+    let colorActiveLink = "text-blue-700 ";
+    let colorInactiveLink = "text-gray-700 ";
+    function getLinkActiveStatus(url) {
+        if (base_url + url == window.location.href) {
+            return colorActiveLink;
+        }
+        return colorInactiveLink;
+    }
     function getAuthRoutes(auth) {
         if (auth) {
             return (
@@ -14,7 +24,10 @@ function Navbar({ auth }) {
                             href="/"
                             aria-label="Books pricing"
                             title="Books pricing"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className={
+                                getLinkActiveStatus("/") +
+                                "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            }
                         >
                             My BookShelf
                         </InertiaLink>
@@ -31,7 +44,7 @@ function Navbar({ auth }) {
                         label={
                             <Avatar
                                 alt="User settings"
-                                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                img={base_url + "/images/" + auth.image}
                                 rounded={true}
                             />
                         }
@@ -46,7 +59,6 @@ function Navbar({ auth }) {
                         </Dropdown.Header>
                         <Dropdown.Item>Dashboard</Dropdown.Item>
                         <Dropdown.Item>Settings</Dropdown.Item>
-                        <Dropdown.Item>Earnings</Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item>
                             <InertiaLink
@@ -65,10 +77,13 @@ function Navbar({ auth }) {
                 <>
                     <li>
                         <InertiaLink
-                            href={route("login")} //{base_url + "/login"}
+                            href={route("login")}
                             aria-label="Sign in"
                             title="Sign in"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className={
+                                getLinkActiveStatus("/login") +
+                                "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            }
                         >
                             Sign in
                         </InertiaLink>
@@ -76,7 +91,10 @@ function Navbar({ auth }) {
                     <li>
                         <InertiaLink
                             href={route("register")}
-                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            className={
+                                getLinkActiveStatus("/register") +
+                                "inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            }
                             aria-label="Sign up"
                             title="Sign up"
                         >
@@ -123,7 +141,10 @@ function Navbar({ auth }) {
                                     href={base_url + "/book"}
                                     aria-label="Our Books"
                                     title="Our Books"
-                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                    className={
+                                        getLinkActiveStatus("/book") +
+                                        "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                    }
                                 >
                                     Books
                                 </InertiaLink>
@@ -133,7 +154,10 @@ function Navbar({ auth }) {
                                     href={base_url + "/story"}
                                     aria-label="Our Books"
                                     title="Our Books"
-                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                    className={
+                                        getLinkActiveStatus("/story") +
+                                        "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                    }
                                 >
                                     Stories
                                 </InertiaLink>
@@ -143,45 +167,7 @@ function Navbar({ auth }) {
                     </div>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
                         <li>
-                            <form>
-                                <label
-                                    htmlFor="default-search"
-                                    className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-                                >
-                                    Search
-                                </label>
-                                <div className="relative">
-                                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                        <svg
-                                            className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                            ></path>
-                                        </svg>
-                                    </div>
-                                    <input
-                                        type="search"
-                                        id="default-search"
-                                        className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Search"
-                                        required
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        Search
-                                    </button>
-                                </div>
-                            </form>
+                            <SearchBar />
                         </li>
                         {validateAuth(auth)}
                     </ul>
@@ -289,7 +275,12 @@ function Navbar({ auth }) {
                                                     href={base_url + "/book"}
                                                     aria-label="Our Books"
                                                     title="Our Books"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                    className={
+                                                        getLinkActiveStatus(
+                                                            "/book"
+                                                        ) +
+                                                        "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                    }
                                                 >
                                                     Books
                                                 </InertiaLink>
@@ -299,52 +290,19 @@ function Navbar({ auth }) {
                                                     href={base_url + "/story"}
                                                     aria-label="Our Books"
                                                     title="Our Books"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                    className={
+                                                        getLinkActiveStatus(
+                                                            "/story"
+                                                        ) +
+                                                        "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                    }
                                                 >
                                                     Stories
                                                 </InertiaLink>
                                             </li>
                                             {getAuthRoutes(auth)}
                                             <li>
-                                                <form>
-                                                    <label
-                                                        htmlFor="default-search"
-                                                        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-                                                    >
-                                                        Search
-                                                    </label>
-                                                    <div className="relative">
-                                                        <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                            <svg
-                                                                className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                viewBox="0 0 24 24"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                            >
-                                                                <path
-                                                                    strokeLinecap="round"
-                                                                    stroke-linejoin="round"
-                                                                    strokeWidth="2"
-                                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                                                ></path>
-                                                            </svg>
-                                                        </div>
-                                                        <input
-                                                            type="search"
-                                                            id="default-search"
-                                                            className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                            placeholder="Search"
-                                                            required
-                                                        />
-                                                        <button
-                                                            type="submit"
-                                                            className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                        >
-                                                            Search
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                <SearchBar />
                                             </li>
                                             {validateAuth(auth)}
                                         </ul>

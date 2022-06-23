@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'gender' => 'Male',
-            'image' => 'xyz',
+            'image' => 'pp.jpg',
             'DOB' => now(),
             'is_admin' => true,
             'password' => Hash::make('admin')
         ]);
+        $this->call(\Database\Seeders\StatusesSeeder::class);
     }
 }

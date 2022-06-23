@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Story;
 use App\Http\Requests\StoreStoryRequest;
 use App\Http\Requests\UpdateStoryRequest;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class StoryController extends Controller
 {
@@ -16,6 +18,10 @@ class StoryController extends Controller
     public function index()
     {
         $stories = Story::all();
+        return Inertia::render('Stories',[
+            'stories' => $stories,
+            'auth' => auth()->user()
+        ]);
     }
 
     /**
@@ -25,7 +31,7 @@ class StoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('CreateStory');
     }
 
     /**
@@ -42,7 +48,7 @@ class StoryController extends Controller
             'title' => $request->title,
             'description' => $request->description,
         ]);
-
+        return Redirect::route('story.index');
     }
 
     /**
@@ -53,7 +59,10 @@ class StoryController extends Controller
      */
     public function show(Story $story)
     {
-        return $story;
+        return Inertia::render('BookContents',[
+            'item' => $story,
+            'auth' => auth()->user(),
+        ]);
     }
 
     /**
@@ -64,7 +73,10 @@ class StoryController extends Controller
      */
     public function edit(Story $story)
     {
-        //
+        return Inertia::render('CreateStory',[
+            'data' => $story,
+            'auth' => auth()->user(),
+        ]);
     }
 
     /**
@@ -80,6 +92,7 @@ class StoryController extends Controller
         $story['title'] = $request->title;
         $story['description'] = $request->description;
         $story->save();
+        return Redirect::route('story.index');
     }
 
     /**
@@ -91,5 +104,6 @@ class StoryController extends Controller
     public function destroy(Story $story)
     {
         $story->delete();
+        return Redirect::route('story.index');
     }
 }

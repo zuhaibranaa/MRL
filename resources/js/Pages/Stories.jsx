@@ -1,12 +1,11 @@
-import { Inertia } from "@inertiajs/inertia";
-import React, { useState, useRef, useContext } from "react";
+import React from "react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import BookContents from "@/Components/BookContents";
 import { Button } from "flowbite-react";
 import { InertiaLink } from "@inertiajs/inertia-react";
 
-export default function Books(props) {
+function Stories(props) {
     return (
         <>
             <Navbar props={{ ...props }} />
@@ -22,7 +21,7 @@ export default function Books(props) {
                     alignContent: "center",
                 }}
             >
-                <InertiaLink href={base_url + "/book/create"} as="a">
+                <InertiaLink href={base_url + "/story/create"} as="a">
                     <Button>
                         <svg
                             className="w-6 h-6"
@@ -38,12 +37,14 @@ export default function Books(props) {
                                 d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                             ></path>
                         </svg>
-                        Add New Book
+                        Add New Story
                     </Button>
                 </InertiaLink>
             </div>
-            <BookContents props={{ ...props }} />
+            <BookContents />
             <Footer />
         </>
     );
 }
+
+export default Stories;

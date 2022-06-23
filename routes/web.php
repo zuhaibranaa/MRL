@@ -25,13 +25,14 @@ Route::get('/', function () {
     ]);
 })->name('/');
 Route::resources([
-    'story' => \App\Http\Controllers\StoryController::class,
-    'book' => \App\Http\Controllers\BookController::class,
     'author' => \App\Http\Controllers\AuthorController::class,
+    'book' => \App\Http\Controllers\BookController::class,
     'bookshelf' => \App\Http\Controllers\BookShelfController::class,
+    'profile' => \App\Http\Controllers\StoryController::class,
+    'story' => \App\Http\Controllers\StoryController::class,
 ]);
-// Route::get('/dashboard', function () {
-//     return Inertia::render('HomePage');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

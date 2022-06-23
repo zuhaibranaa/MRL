@@ -6,7 +6,7 @@ import React from "react";
 function HomePage(props) {
     return (
         <>
-            <Navbar />
+            <Navbar props={{ ...props }} />
             <Home />
             <Footer />
         </>

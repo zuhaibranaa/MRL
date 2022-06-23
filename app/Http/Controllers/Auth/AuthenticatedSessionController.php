@@ -23,7 +23,7 @@ class AuthenticatedSessionController extends Controller
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
             'props' => [
-                'auth' => auth(),
+                'auth' => auth()->user(),
             ],
         ]);
     }

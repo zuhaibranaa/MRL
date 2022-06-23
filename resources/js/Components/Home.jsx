@@ -1,7 +1,14 @@
 import React from "react";
+import BookContents from "@/Components/BookContents";
 
-function Home() {
-    return <div>Home</div>;
+function Home(props) {
+    return (
+        <>
+            <BookContents props={{ ...props }} />
+            <hr />
+            <BookContents props={{ ...props }} />
+        </>
+    );
 }
 
 export default Home;

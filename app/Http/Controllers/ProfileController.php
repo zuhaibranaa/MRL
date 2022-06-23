@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
@@ -14,27 +15,49 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        //
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return Inertia::render('CreateStory');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  User  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $id)
+    public function show($id)
     {
-        return $id;
+        $user = User::find($id);
+        return $user;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  User  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $id)
+    public function edit($id)
     {
         //
     }
@@ -43,28 +66,22 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  User  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,User $id)
+    public function update(Request $request, $id)
     {
-        $id;
-        // $user
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        if(auth()->user()->is_admin || auth()->user()->id == $user->id){
-            $user->delete();
-            return redirect()->back();
-        }else {
-            return abort(403, "You Are Not Authorized To Perform This Task");
-        }
+        //
     }
 }
