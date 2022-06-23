@@ -5,14 +5,15 @@ import Label from "@/Components/Label";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
-import { Textarea } from "flowbite-react";
 
 function CreateBook({ props, status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        title: "",
+        title: props.title ? props.title : "",
         image: "",
-        content: "",
         description: "",
+        author: "",
+        date: "",
+        genre: "",
     });
     const imageRef = useRef();
 
@@ -35,13 +36,20 @@ function CreateBook({ props, status, canResetPassword }) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", data.title);
-        formData.append("content", data.content);
+        formData.append("author", data.author);
+        formData.append("content", data.date);
+        formData.append("genre", data.genre);
         formData.append("description", data.description);
         formData.append("image", imageRef.current.files[0]);
-
-        Inertia.post(route("story"), formData, {
-            forceFormData: true,
-        });
+        if (props.method == "POST") {
+            Inertia.post(base_url + "/book", formData, {
+                forceFormData: true,
+            });
+        } else {
+            Inertia.put(base_url + "/" + props.book_id + "/edit", formData, {
+                forceFormData: true,
+            });
+        }
     };
     return (
         <>
@@ -75,23 +83,48 @@ function CreateBook({ props, status, canResetPassword }) {
                             />
                         </div>
                         <div>
-                            <Label forInput="content" value="Content" />
-
-                            <Textarea
-                                name="content"
-                                value={data.content}
-                                className="mt-1 block w-full"
-                                isFocused={true}
-                                handleChange={onHandleChange}
-                            />
-                        </div>
-                        <div>
                             <Label forInput="description" value="Description" />
 
                             <Input
                                 type="text"
                                 name="description"
                                 value={data.description}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+                        <div>
+                            <Label forInput="author" value="Author" />
+
+                            <Input
+                                type="text"
+                                name="author"
+                                value={data.author}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+                        <div>
+                            <Label forInput="date" value="Date" />
+
+                            <Input
+                                type="date"
+                                name="date"
+                                value={data.date}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+                        <div>
+                            <Label forInput="genre" value="Genre" />
+
+                            <Input
+                                type="text"
+                                name="genre"
+                                value={data.genre}
                                 className="mt-1 block w-full"
                                 isFocused={true}
                                 handleChange={onHandleChange}

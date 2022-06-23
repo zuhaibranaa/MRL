@@ -13,9 +13,9 @@ export default function Books(props) {
             <div
                 className="pt-4"
                 style={{
-                    paddingRight: "6%",
+                    paddingLeft: "6%",
                     position: "relative",
-                    float: "right",
+                    float: "left",
                     verticalAlign: "center",
                     width: "device-width",
                     height: "3%",

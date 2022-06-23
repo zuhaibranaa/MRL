@@ -7,7 +7,7 @@ function HomePage(props) {
     return (
         <>
             <Navbar props={{ ...props }} />
-            <Home />
+            <Home props={{ ...props }} />
             <Footer />
         </>
     );

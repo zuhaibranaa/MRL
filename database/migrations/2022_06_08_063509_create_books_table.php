@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('image');
             $table->string('description');
-            $table->unsignedBigInteger('publisher');
+            $table->string('author');
             $table->dateTime('date');
             $table->string('genre');
-            $table->timestamps();
+            $table->unsignedBigInteger('publisher');
             $table->foreign('publisher')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

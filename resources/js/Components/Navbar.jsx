@@ -57,8 +57,15 @@ function Navbar({ props }) {
                                 {auth.email}
                             </span>
                         </Dropdown.Header>
-                        <Dropdown.Item>Dashboard</Dropdown.Item>
-                        <Dropdown.Item>Settings</Dropdown.Item>
+                        <Dropdown.Item>
+                            <InertiaLink
+                                href={base_url + "/profile"}
+                                method="POST"
+                                as="button"
+                            >
+                                Settings
+                            </InertiaLink>
+                        </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item>
                             <InertiaLink

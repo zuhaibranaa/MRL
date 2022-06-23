@@ -1,12 +1,34 @@
 import React from "react";
 import BookContents from "@/Components/BookContents";
 
-function Home(props) {
+function Home({ props }) {
     return (
         <>
-            <BookContents props={{ ...props }} />
+            <h1
+                style={{
+                    fontSize: "30px",
+                    marginLeft: "5%",
+                    paddingTop: "3%",
+                    verticalAlign: "center",
+                    textAlign: "left",
+                }}
+            >
+                Books
+            </h1>
+            <BookContents props={{ items: props.books, type: "book" }} />
             <hr />
-            <BookContents props={{ ...props }} />
+            <h1
+                style={{
+                    fontSize: "30px",
+                    marginLeft: "5%",
+                    paddingTop: "3%",
+                    verticalAlign: "center",
+                    textAlign: "left",
+                }}
+            >
+                Stories
+            </h1>
+            <BookContents props={{ items: props.stories, type: "story" }} />
         </>
     );
 }

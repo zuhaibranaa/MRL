@@ -16,7 +16,6 @@ class BookController extends Controller
      */
     public function index()
     {
-        // return asset('images/pp.jpg');
         $books = Book::all();
         return Inertia::render('Books',[
             'auth' => auth()->user(),
@@ -33,6 +32,7 @@ class BookController extends Controller
     {
         return Inertia::render('CreateBook',[
             'auth'=>auth()->user(),
+            'method' => 'POST',
         ]);
     }
 
@@ -44,7 +44,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+
     }
 
     /**
@@ -55,7 +55,10 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return Inertia::render('BookDetails',[
+            'auth' => auth()->user(),
+            'book'=> $book,
+        ]);
     }
 
     /**
@@ -66,7 +69,11 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return Inertia::render('CreateBook',[
+            'book' => $book,
+            'auth'=> auth()->user(),
+            'method' => 'PUT',
+        ]);
     }
 
     /**

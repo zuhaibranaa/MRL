@@ -18,11 +18,11 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
+    $books = Book::all();
+    $stories = Story::all();
     return Inertia::render('HomePage', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'books' => $books,
+        'stories' => $stories,
         'auth' => auth()->user(),
     ]);
 })->name('/');
@@ -40,15 +40,12 @@ Route::post('search',function (Request $data)
 {
     $book = Book::where('title', 'LIKE', $data->title)->get();
     $story = Story::where('title', 'LIKE', $data->title)->get();
-    return Inertia::render('SearchResults',[
+    return Inertia::render('HomePage',[
         'book' => $book,
         'story' => $story,
-        'props' => [
         'auth' => auth()->user(),
-        ]
     ]
 );
-// return $data;
 })->name('search');
 
 require __DIR__.'/auth.php';
