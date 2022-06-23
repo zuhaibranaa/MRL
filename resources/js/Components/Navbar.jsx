@@ -166,9 +166,7 @@ function Navbar({ props }) {
                         </ul>
                     </div>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
-                        <li>
-                            <SearchBar />
-                        </li>
+                        <SearchBar />
                         {validateAuth(auth)}
                     </ul>
                     <div className="lg:hidden">
@@ -301,9 +299,7 @@ function Navbar({ props }) {
                                                 </InertiaLink>
                                             </li>
                                             {getAuthRoutes(auth)}
-                                            <li>
-                                                <SearchBar />
-                                            </li>
+                                            <SearchBar />
                                             {validateAuth(auth)}
                                         </ul>
                                     </nav>

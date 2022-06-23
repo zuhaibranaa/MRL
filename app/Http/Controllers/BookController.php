@@ -31,7 +31,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        return Inertia::render('CreateBook');
+        return Inertia::render('CreateBook',[
+            'auth'=>auth()->user(),
+        ]);
     }
 
     /**

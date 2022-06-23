@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Button from "@/Components/Button";
 import Input from "@/Components/Input";
 import Label from "@/Components/Label";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import { Textarea } from "flowbite-react";
 
 function CreateBook({ props, status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: "",
-        password: "",
+        title: "",
+        image: "",
+        content: "",
+        description: "",
     });
+    const imageRef = useRef();
 
     useEffect(() => {
         return () => {
@@ -29,8 +33,15 @@ function CreateBook({ props, status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("content", data.content);
+        formData.append("description", data.description);
+        formData.append("image", imageRef.current.files[0]);
 
-        post(route("login"));
+        Inertia.post(route("story"), formData, {
+            forceFormData: true,
+        });
     };
     return (
         <>
@@ -39,43 +50,57 @@ function CreateBook({ props, status, canResetPassword }) {
                 <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <form onSubmit={submit}>
                         <div>
-                            <Label forInput="email" value="Email" />
+                            <Label forInput="title" value="Title" />
 
                             <Input
                                 type="text"
-                                name="email"
-                                value={data.email}
+                                name="title"
+                                value={data.title}
                                 className="mt-1 block w-full"
-                                autoComplete="username"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+                        <div>
+                            <Label forInput="image" value="Image" />
+
+                            <Input
+                                type="file"
+                                name="image"
+                                ref={imageRef}
+                                value={data.image}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+                        <div>
+                            <Label forInput="content" value="Content" />
+
+                            <Textarea
+                                name="content"
+                                value={data.content}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                handleChange={onHandleChange}
+                            />
+                        </div>
+                        <div>
+                            <Label forInput="description" value="Description" />
+
+                            <Input
+                                type="text"
+                                name="description"
+                                value={data.description}
+                                className="mt-1 block w-full"
                                 isFocused={true}
                                 handleChange={onHandleChange}
                             />
                         </div>
 
-                        <div className="mt-4">
-                            <Label forInput="password" value="Password" />
-
-                            <Input
-                                type="password"
-                                name="password"
-                                value={data.password}
-                                className="mt-1 block w-full"
-                                autoComplete="current-password"
-                                handleChange={onHandleChange}
-                            />
-                        </div>
                         <div className="flex items-center justify-end mt-4">
-                            {canResetPassword && (
-                                <Link
-                                    href={route("password.request")}
-                                    className="underline text-sm text-gray-600 hover:text-gray-900"
-                                >
-                                    Forgot your password?
-                                </Link>
-                            )}
-
                             <Button className="ml-4" processing={processing}>
-                                Log in
+                                Submit
                             </Button>
                         </div>
                     </form>

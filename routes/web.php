@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\{User, Book, Story};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +36,19 @@ Route::resources([
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('search',function (Request $data)
+{
+    $book = Book::where('title', 'LIKE', $data->title)->get();
+    $story = Story::where('title', 'LIKE', $data->title)->get();
+    return Inertia::render('SearchResults',[
+        'book' => $book,
+        'story' => $story,
+        'props' => [
+        'auth' => auth()->user(),
+        ]
+    ]
+);
+// return $data;
+})->name('search');
 
 require __DIR__.'/auth.php';

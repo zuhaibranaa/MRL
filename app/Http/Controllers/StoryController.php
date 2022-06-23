@@ -31,7 +31,11 @@ class StoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('CreateStory');
+        return Inertia::render('CreateStory',[
+            'props'=> [
+                'auth' => auth()->user(),
+            ],
+        ]);
     }
 
     /**
