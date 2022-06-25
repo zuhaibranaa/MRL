@@ -5,14 +5,14 @@ import Label from "@/Components/Label";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import { Inertia } from "@inertiajs/inertia";
 import { Textarea } from "flowbite-react";
-
 function CreateStory({ props, status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         image: "",
-        content: "",
         description: "",
+        content: "",
     });
     const imageRef = useRef();
 
@@ -35,13 +35,18 @@ function CreateStory({ props, status, canResetPassword }) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", data.title);
-        formData.append("content", data.content);
+        formData.append("content", data.date);
         formData.append("description", data.description);
         formData.append("image", imageRef.current.files[0]);
-
-        Inertia.post(route("story"), formData, {
-            forceFormData: true,
-        });
+        if (window.location.href == base_url + "/story/create") {
+            Inertia.post(base_url + "/story", formData, {
+                forceFormData: true,
+            });
+        } else {
+            Inertia.put(base_url + "/" + props.book_id + "/edit", formData, {
+                forceFormData: true,
+            });
+        }
     };
     return (
         <>
@@ -62,27 +67,38 @@ function CreateStory({ props, status, canResetPassword }) {
                             />
                         </div>
                         <div>
-                            <Label forInput="image" value="Image" />
-
-                            <Input
-                                type="file"
-                                name="image"
-                                ref={imageRef}
-                                value={data.image}
-                                className="mt-1 block w-full"
-                                isFocused={true}
-                                handleChange={onHandleChange}
-                            />
+                            <div className="mt-4">
+                                <label
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    htmlFor="file_input"
+                                >
+                                    Upload image
+                                </label>
+                                <input
+                                    onChange={(e) => onHandleChange(e)}
+                                    className="p-1 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="file_input_help"
+                                    ref={imageRef}
+                                    id="file_input"
+                                    type="file"
+                                />
+                                <p
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="file_input_help"
+                                >
+                                    SVG, PNG, JPG or GIF.
+                                </p>
+                            </div>
                         </div>
                         <div>
                             <Label forInput="content" value="Content" />
 
                             <Textarea
+                                type="textarea"
                                 name="content"
                                 value={data.content}
                                 className="mt-1 block w-full"
-                                isFocused={true}
-                                handleChange={onHandleChange}
+                                onChange={(e) => onHandleChange(e)}
                             />
                         </div>
                         <div>
@@ -93,7 +109,6 @@ function CreateStory({ props, status, canResetPassword }) {
                                 name="description"
                                 value={data.description}
                                 className="mt-1 block w-full"
-                                isFocused={true}
                                 handleChange={onHandleChange}
                             />
                         </div>

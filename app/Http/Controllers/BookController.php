@@ -44,7 +44,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-
+        return $request;
     }
 
     /**

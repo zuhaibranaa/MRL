@@ -41,7 +41,7 @@ function Stories(props) {
                     </Button>
                 </InertiaLink>
             </div>
-            <BookContents />
+            <BookContents props={{ ...props }} />
             <Footer />
         </>
     );

@@ -5,10 +5,10 @@ import Label from "@/Components/Label";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
-
+import { Inertia } from "@inertiajs/inertia";
 function CreateBook({ props, status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        title: props.title ? props.title : "",
+        title: "",
         image: "",
         description: "",
         author: "",
@@ -41,7 +41,7 @@ function CreateBook({ props, status, canResetPassword }) {
         formData.append("genre", data.genre);
         formData.append("description", data.description);
         formData.append("image", imageRef.current.files[0]);
-        if (props.method == "POST") {
+        if (window.location.href == base_url + "/book/create") {
             Inertia.post(base_url + "/book", formData, {
                 forceFormData: true,
             });
@@ -70,17 +70,28 @@ function CreateBook({ props, status, canResetPassword }) {
                             />
                         </div>
                         <div>
-                            <Label forInput="image" value="Image" />
-
-                            <Input
-                                type="file"
-                                name="image"
-                                ref={imageRef}
-                                value={data.image}
-                                className="mt-1 block w-full"
-                                isFocused={true}
-                                handleChange={onHandleChange}
-                            />
+                            <div className="mt-4">
+                                <label
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    htmlFor="file_input"
+                                >
+                                    Upload image
+                                </label>
+                                <input
+                                    onChange={(e) => onHandleChange(e)}
+                                    className="p-1 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="file_input_help"
+                                    ref={imageRef}
+                                    id="file_input"
+                                    type="file"
+                                />
+                                <p
+                                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                    id="file_input_help"
+                                >
+                                    SVG, PNG, JPG or GIF.
+                                </p>
+                            </div>
                         </div>
                         <div>
                             <Label forInput="description" value="Description" />
@@ -90,7 +101,6 @@ function CreateBook({ props, status, canResetPassword }) {
                                 name="description"
                                 value={data.description}
                                 className="mt-1 block w-full"
-                                isFocused={true}
                                 handleChange={onHandleChange}
                             />
                         </div>
@@ -102,7 +112,6 @@ function CreateBook({ props, status, canResetPassword }) {
                                 name="author"
                                 value={data.author}
                                 className="mt-1 block w-full"
-                                isFocused={true}
                                 handleChange={onHandleChange}
                             />
                         </div>
@@ -114,7 +123,6 @@ function CreateBook({ props, status, canResetPassword }) {
                                 name="date"
                                 value={data.date}
                                 className="mt-1 block w-full"
-                                isFocused={true}
                                 handleChange={onHandleChange}
                             />
                         </div>
@@ -126,7 +134,6 @@ function CreateBook({ props, status, canResetPassword }) {
                                 name="genre"
                                 value={data.genre}
                                 className="mt-1 block w-full"
-                                isFocused={true}
                                 handleChange={onHandleChange}
                             />
                         </div>
