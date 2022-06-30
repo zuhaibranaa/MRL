@@ -44,7 +44,22 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        return $request;
+        $book = new Book();
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->author = $request->author;
+        $book->date = $request->date;
+        $book->genre = $request->genre;
+        $book->publisher = auth()->user()->id;
+
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->move(public_path().'/images/', $filename);
+            $userimage = $filename;
+        }
+        $book->image = $userimage;
+        $book->save();
+        return redirect()->back();
     }
 
     /**
@@ -85,7 +100,20 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->author = $request->author;
+        $book->date = $request->date;
+        $book->genre = $request->genre;
+        $book->publisher = auth()->user()->id;
+
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->move(public_path().'/images/', $filename);
+            $userimage = $filename;
+        }
+        $book->image = $userimage;
+        $book->save();
     }
 
     /**
@@ -96,6 +124,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->back();
     }
 }

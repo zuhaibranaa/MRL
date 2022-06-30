@@ -25,7 +25,7 @@ class BookShelfController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -74,7 +74,9 @@ class BookShelfController extends Controller
      */
     public function update(UpdateBookShelfRequest $request, BookShelf $bookShelf)
     {
-        //
+        $bookShelf['book'] = $request->book;
+        $bookShelf['story'] = $request->story;
+        $bookShelf->save();
     }
 
     /**
@@ -85,6 +87,7 @@ class BookShelfController extends Controller
      */
     public function destroy(BookShelf $bookShelf)
     {
-        //
+        $bookShelf->delete();
+        return redirect()->back();
     }
 }
