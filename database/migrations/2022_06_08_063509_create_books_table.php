@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('description');
             $table->string('author');
             $table->dateTime('date');
-            $table->string('genre');
+            $table->unsignedBigInteger('genre');
             $table->unsignedBigInteger('publisher');
             $table->foreign('publisher')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('genre')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

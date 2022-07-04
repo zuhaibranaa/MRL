@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin')
         ]);
         $this->call(\Database\Seeders\StatusesSeeder::class);
+        $this->call(\Database\Seeders\CategorySeeder::class);
     }
 }

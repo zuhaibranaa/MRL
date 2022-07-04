@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\{Book,Category};
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use Inertia\Inertia;
@@ -19,7 +19,8 @@ class BookController extends Controller
         $books = Book::all();
         return Inertia::render('Books',[
             'auth' => auth()->user(),
-            'books' => $books,
+            'items' => $books,
+            'type' => 'book',
         ]);
     }
 
@@ -33,6 +34,7 @@ class BookController extends Controller
         return Inertia::render('CreateBook',[
             'auth'=>auth()->user(),
             'method' => 'POST',
+            'category' => Category::all(),
         ]);
     }
 
@@ -59,7 +61,7 @@ class BookController extends Controller
         }
         $book->image = $userimage;
         $book->save();
-        return redirect()->back();
+        return redirect('book');
     }
 
     /**

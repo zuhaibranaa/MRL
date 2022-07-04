@@ -19,9 +19,9 @@ class StoryController extends Controller
     {
         $stories = Story::all();
         return Inertia::render('Stories',[
-            'stories' => $stories,
+            'items' => $stories,
             'auth' => auth()->user(),
-            'type' => 'stories',
+            'type' => 'story',
         ]);
     }
 

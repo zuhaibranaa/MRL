@@ -6,7 +6,8 @@ import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import { Inertia } from "@inertiajs/inertia";
-function CreateBook({ props, status, canResetPassword }) {
+function CreateBook({ props, status, canResetPassword, category }) {
+    console.log(category);
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         image: "",
@@ -37,7 +38,7 @@ function CreateBook({ props, status, canResetPassword }) {
         const formData = new FormData();
         formData.append("title", data.title);
         formData.append("author", data.author);
-        formData.append("content", data.date);
+        formData.append("date", data.date);
         formData.append("genre", data.genre);
         formData.append("description", data.description);
         formData.append("image", imageRef.current.files[0]);
@@ -128,14 +129,16 @@ function CreateBook({ props, status, canResetPassword }) {
                         </div>
                         <div>
                             <Label forInput="genre" value="Genre" />
-
-                            <Input
-                                type="text"
+                            <select
                                 name="genre"
-                                value={data.genre}
                                 className="mt-1 block w-full"
-                                handleChange={onHandleChange}
-                            />
+                                value={data.genre}
+                                onChange={onHandleChange}
+                            >
+                                {category.map(({ id, name }, index) => (
+                                    <option value={id}>{name}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="flex items-center justify-end mt-4">
