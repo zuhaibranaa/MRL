@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+
+    }
 
     /**
      * Store a newly created resource in storage.
