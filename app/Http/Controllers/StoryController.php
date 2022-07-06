@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Story;
+use App\Models\{Story,Category};
 use App\Http\Requests\StoreStoryRequest;
 use App\Http\Requests\UpdateStoryRequest;
 use Illuminate\Support\Facades\Redirect;
@@ -38,9 +38,8 @@ class StoryController extends Controller
     public function create()
     {
         return Inertia::render('CreateStory',[
-            'props'=> [
-                'auth' => auth()->user(),
-            ],
+            'auth' => auth()->user(),
+            'category' => Category::all(),
         ]);
     }
 
@@ -52,12 +51,19 @@ class StoryController extends Controller
      */
     public function store(StoreStoryRequest $request)
     {
-
-        $story = Story::create([
-            'author' => auth()->user()->id,
-            'title' => $request->title,
-            'description' => $request->description,
-        ]);
+        $story = new Story();
+        $story['title'] = $request->title;
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->move(public_path().'/images/', $filename);
+            $userimage = $filename;
+        }
+        $story['image'] = $userimage;
+        $story['content'] = $request->content;
+        $story['description'] = $request->description;
+        $story['author'] = auth()->user()->id;
+        $story['genre'] = $request->genre;
+        $story->save();
         return Redirect::route('story.index');
     }
 

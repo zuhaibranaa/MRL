@@ -5315,7 +5315,7 @@ function Navbar(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.InertiaLink, {
-            href: "/",
+            href: base_url + "/bookshelf/",
             "aria-label": "Books pricing",
             title: "Books pricing",
             className: getLinkActiveStatus("/") + "font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400",
@@ -7321,16 +7321,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-function CreateStory(_ref) {
-  var props = _ref.props,
-      status = _ref.status,
-      canResetPassword = _ref.canResetPassword;
+function CreateStory(props) {
+  console.log(props);
 
   var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.useForm)({
     title: "",
     image: "",
     description: "",
-    content: ""
+    content: "",
+    genre: ""
   }),
       data = _useForm.data,
       setData = _useForm.setData,
@@ -7354,7 +7353,8 @@ function CreateStory(_ref) {
     e.preventDefault();
     var formData = new FormData();
     formData.append("title", data.title);
-    formData.append("content", data.date);
+    formData.append("genre", data.genre);
+    formData.append("content", data.content);
     formData.append("description", data.description);
     formData.append("image", imageRef.current.files[0]);
 
@@ -7435,6 +7435,30 @@ function CreateStory(_ref) {
               value: data.description,
               className: "mt-1 block w-full",
               handleChange: onHandleChange
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              forInput: "genre",
+              value: "Genre"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("select", {
+              name: "genre",
+              className: "mt-1 block w-full",
+              value: data.genre,
+              onChange: onHandleChange,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
+                selected: true,
+                style: {
+                  color: "gray"
+                },
+                children: "Select"
+              }), props.category.map(function (_ref, index) {
+                var id = _ref.id,
+                    name = _ref.name;
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
+                  value: id,
+                  children: name
+                });
+              })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "flex items-center justify-end mt-4",

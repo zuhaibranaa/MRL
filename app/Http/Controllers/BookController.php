@@ -38,7 +38,6 @@ class BookController extends Controller
     {
         return Inertia::render('CreateBook',[
             'auth'=>auth()->user(),
-            'method' => 'POST',
             'category' => Category::all(),
         ]);
     }

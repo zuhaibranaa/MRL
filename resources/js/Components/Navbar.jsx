@@ -21,7 +21,7 @@ function Navbar({ props }) {
                 <>
                     <li>
                         <InertiaLink
-                            href="/"
+                            href={base_url + "/bookshelf/"}
                             aria-label="Books pricing"
                             title="Books pricing"
                             className={

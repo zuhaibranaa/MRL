@@ -7,12 +7,14 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import { Inertia } from "@inertiajs/inertia";
 import { Textarea } from "flowbite-react";
-function CreateStory({ props, status, canResetPassword }) {
+function CreateStory(props) {
+    console.log(props);
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         image: "",
         description: "",
         content: "",
+        genre: "",
     });
     const imageRef = useRef();
 
@@ -35,7 +37,8 @@ function CreateStory({ props, status, canResetPassword }) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", data.title);
-        formData.append("content", data.date);
+        formData.append("genre", data.genre);
+        formData.append("content", data.content);
         formData.append("description", data.description);
         formData.append("image", imageRef.current.files[0]);
         if (window.location.href == base_url + "/story/create") {
@@ -111,6 +114,22 @@ function CreateStory({ props, status, canResetPassword }) {
                                 className="mt-1 block w-full"
                                 handleChange={onHandleChange}
                             />
+                        </div>
+                        <div>
+                            <Label forInput="genre" value="Genre" />
+                            <select
+                                name="genre"
+                                className="mt-1 block w-full"
+                                value={data.genre}
+                                onChange={onHandleChange}
+                            >
+                                <option selected style={{ color: "gray" }}>
+                                    Select
+                                </option>
+                                {props.category.map(({ id, name }, index) => (
+                                    <option value={id}>{name}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="flex items-center justify-end mt-4">
