@@ -6926,9 +6926,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Components_Footer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Components/Footer */ "./resources/js/Components/Footer.jsx");
 /* harmony import */ var _Components_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Navbar */ "./resources/js/Components/Navbar.jsx");
-/* harmony import */ var flowbite_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flowbite-react */ "./node_modules/flowbite-react/lib/esm/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var flowbite_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flowbite-react */ "./node_modules/flowbite-react/lib/esm/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -6943,56 +6944,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 function BookShelf(props) {
-  console.log(props.items);
+  console.log(props);
   var a = [];
   props.items.forEach(function (e) {
-    a.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Row, {
+    var typee = "story";
+    var title = null;
+
+    if (e.story === null) {
+      typee = "book";
+      title = props.books[e.id - 1].title;
+    }
+
+    a.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Row, {
       className: "bg-white dark:border-gray-700 dark:bg-gray-800",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Cell, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Cell, {
         className: "whitespace-nowrap font-medium text-gray-900 dark:text-white",
-        children: e.item_id
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Cell, {
-        children: e.book ? "book" : "story"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Cell, {
-        children: e.status
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Cell, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-          href: "/tables",
-          className: "font-medium text-red-600 hover:underline dark:text-blue-500",
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Cell, {
+        children: typee
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Cell, {
+        children: props.statuses[e.status - 1].name
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Cell, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
+          onClick: function onClick() {
+            _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Inertia["delete"](base_url + "/bookshelf/" + e.id);
+          },
           children: "Delete"
         })
       })]
     }));
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], {
       props: _objectSpread({}, props)
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       style: {
         margin: "5%"
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table, {
         hoverable: true,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Head, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.HeadCell, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Head, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.HeadCell, {
             children: "Title"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.HeadCell, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.HeadCell, {
             children: "Type"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.HeadCell, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.HeadCell, {
             children: "Status"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.HeadCell, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.HeadCell, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "sr-only",
               children: "Edit"
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_2__.Table.Body, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(flowbite_react__WEBPACK_IMPORTED_MODULE_3__.Table.Body, {
           className: "divide-y",
           children: a
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Footer__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
   });
 }
 

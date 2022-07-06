@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookShelf;
+use App\Models\{BookShelf, Book, Story, statuses};
 use App\Http\Requests\StoreBookShelfRequest;
 use Inertia\Inertia;
 
@@ -23,7 +23,10 @@ class BookShelfController extends Controller
         $bookShelf = BookShelf::all()->where('user','=',auth()->user()->id);
         return Inertia::render('BookShelf',[
             'auth' => auth()->user(),
-            'items' => $bookShelf
+            'items' => $bookShelf,
+            'statuses' => statuses::all(),
+            'books' => Book::all(),
+            'stories' => Story::all(),
         ]);
     }
 

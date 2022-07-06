@@ -1,26 +1,41 @@
 import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
-import { Table } from "flowbite-react";
+import {
+    Head,
+    Link,
+    useForm,
+    InertiaLink,
+    Inertia,
+} from "@inertiajs/inertia-react";
+
+import { Button, Table } from "flowbite-react";
 import React from "react";
 
 function BookShelf(props) {
-    console.log(props.items);
+    console.log(props);
     const a = [];
     props.items.forEach((e) => {
+        let typee = "story";
+        let title = null;
+        if (e.story === null) {
+            typee = "book";
+            title = props.books[e.id - 1].title;
+        }
         a.push(
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    {e.item_id}
+                    {title}
                 </Table.Cell>
-                <Table.Cell>{e.book ? "book" : "story"}</Table.Cell>
-                <Table.Cell>{e.status}</Table.Cell>
+                <Table.Cell>{typee}</Table.Cell>
+                <Table.Cell>{props.statuses[e.status - 1].name}</Table.Cell>
                 <Table.Cell>
-                    <a
-                        href="/tables"
-                        className="font-medium text-red-600 hover:underline dark:text-blue-500"
+                    <Button
+                        onClick={() => {
+                            Inertia.delete(base_url + "/bookshelf/" + e.id);
+                        }}
                     >
                         Delete
-                    </a>
+                    </Button>
                 </Table.Cell>
             </Table.Row>
         );
