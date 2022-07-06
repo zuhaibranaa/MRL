@@ -79,7 +79,8 @@ class BookController extends Controller
     {
         return Inertia::render('BookDetails',[
             'auth' => auth()->user(),
-            'book'=> $book,
+            'item'=> $book,
+            'type'=> "book",
         ]);
     }
 

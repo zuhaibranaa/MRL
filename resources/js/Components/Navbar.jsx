@@ -59,8 +59,13 @@ function Navbar({ props }) {
                         </Dropdown.Header>
                         <Dropdown.Item>
                             <InertiaLink
-                                href={base_url + "/profile"}
-                                method="POST"
+                                href={
+                                    base_url +
+                                    "/profile/" +
+                                    props.auth.id +
+                                    "/edit"
+                                }
+                                method="GET"
                                 as="button"
                             >
                                 Settings

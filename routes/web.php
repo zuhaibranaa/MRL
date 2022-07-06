@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
     $books = Book::all();
@@ -19,14 +19,12 @@ Route::get('/', function () {
 Route::resources([
     'book' => \App\Http\Controllers\BookController::class,
     'bookshelf' => \App\Http\Controllers\BookShelfController::class,
-    'profile' => \App\Http\Controllers\StoryController::class,
+    'profile' => \App\Http\Controllers\ProfileController::class,
     'story' => \App\Http\Controllers\StoryController::class,
 ]);
 Route::get('/dashboard', function () {
-    return Inertia::render('HomePage',[
-        'auth' => auth()->user(),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return redirect(url('/'));
+});
 Route::post('search',function (Request $data)
 {
     $book = Book::where('title', 'LIKE', $data->title)->get();

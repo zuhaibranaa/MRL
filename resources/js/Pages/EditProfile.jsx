@@ -8,13 +8,11 @@ import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 
-export default function Register(props) {
+export default function EditProfile(props) {
+    console.log(props);
     const imageRef = useRef();
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        email: "",
-        gender: "",
-        DOB: "",
+    const { data, setData, put, processing, errors, reset } = useForm({
+        name: props.auth.name,
         image: "",
         password: "",
         password_confirmation: "",
@@ -39,14 +37,10 @@ export default function Register(props) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("name", data.name);
-        formData.append("email", data.email);
-        formData.append("gender", data.gender);
-        formData.append("DOB", data.DOB);
         formData.append("password", data.password);
         formData.append("password_confirmation", data.password_confirmation);
         formData.append("image", imageRef.current.files[0]);
-
-        post(route("register"), formData, {
+        put(base_url + "/profile/" + props.auth.id, formData, {
             forceFormData: true,
         });
     };
@@ -55,7 +49,7 @@ export default function Register(props) {
         <>
             <Navbar props={{ ...props }} />
             <Guest>
-                <Head title="Register" />
+                <Head title="Update User" />
 
                 <ValidationErrors errors={errors} />
 
@@ -71,68 +65,9 @@ export default function Register(props) {
                             autoComplete="name"
                             isFocused={true}
                             handleChange={onHandleChange}
-                            required
                         />
                     </div>
 
-                    <div className="mt-4">
-                        <Label forInput="email" value="Email" />
-
-                        <Input
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            className="mt-1 block w-full"
-                            autoComplete="username"
-                            handleChange={onHandleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mt-4">
-                        <Label forInput="DOB" value="Date Of Birth" />
-
-                        <Input
-                            type="date"
-                            name="DOB"
-                            value={data.DOB}
-                            className="mt-1 block w-full"
-                            handleChange={onHandleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mt-4">
-                        <Label forInput="gender" value="Gender" />
-                        <div className="mt-1 ml-2 flex w-full">
-                            <Label
-                                forInput="Male"
-                                className="ml-2"
-                                value="Male"
-                            />
-                            <Input
-                                id="Male"
-                                type="radio"
-                                name="gender"
-                                value="Male"
-                                className="ml-2"
-                                handleChange={onHandleChange}
-                                required
-                            />
-                            <Label
-                                forInput="Female"
-                                className="ml-2"
-                                value="Female"
-                            />
-                            <Input
-                                type="radio"
-                                id="Female"
-                                className="ml-2"
-                                name="gender"
-                                value="Female"
-                                handleChange={onHandleChange}
-                                required
-                            />
-                        </div>
-                    </div>
                     <div className="mt-4">
                         <label
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -164,7 +99,6 @@ export default function Register(props) {
                             className="mt-1 block w-full"
                             autoComplete="new-password"
                             handleChange={onHandleChange}
-                            required
                         />
                     </div>
 
@@ -180,20 +114,12 @@ export default function Register(props) {
                             value={data.password_confirmation}
                             className="mt-1 block w-full"
                             handleChange={onHandleChange}
-                            required
                         />
                     </div>
 
                     <div className="flex items-center justify-end mt-4">
-                        <Link
-                            href={route("login")}
-                            className="underline text-sm text-gray-600 hover:text-gray-900"
-                        >
-                            Already registered?
-                        </Link>
-
                         <Button className="ml-4" processing={processing}>
-                            Register
+                            Update User
                         </Button>
                     </div>
                 </form>

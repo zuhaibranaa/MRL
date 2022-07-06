@@ -1,10 +1,10 @@
+import Button from "@/Components/Button";
 import Footer from "@/Components/Footer";
+import Model from "@/Components/Model";
 import Navbar from "@/Components/Navbar";
-import { InertiaLink } from "@inertiajs/inertia-react";
-import { Card, Button } from "flowbite-react";
+import { Card } from "flowbite-react";
 import React from "react";
 function BookDetails(props) {
-    console.log(props);
     return (
         <>
             <Navbar props={{ ...props }} />
@@ -13,10 +13,10 @@ function BookDetails(props) {
                     <div className="flex flex-col justify-center">
                         <div className="max-w-xl mb-6">
                             <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-                                {props.book.title}
+                                {props.item.title}
                             </h2>
                             <p className="text-base text-gray-700 md:text-lg">
-                                {props.book.description}
+                                {props.item.description}
                             </p>
                         </div>
                         <p className="mb-4 text-sm font-bold tracking-widest uppercase">
@@ -42,19 +42,18 @@ function BookDetails(props) {
                             <Card
                                 imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
                                 imgSrc={
-                                    base_url + "/images/" + props.book.image
+                                    base_url + "/images/" + props.item.image
                                 }
                             >
                                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {props.book.title}
+                                    {props.item.title}
                                 </h5>
                                 <div className="flex items-center justify-between">
                                     <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                                        {props.book.author}
+                                        {props.item.author}
                                     </span>
-                                    <InertiaLink as="a">
-                                        <Button>Add To Reading List</Button>
-                                    </InertiaLink>
+
+                                    <Model props={{ ...props }} />
                                 </div>
                             </Card>
                         </div>

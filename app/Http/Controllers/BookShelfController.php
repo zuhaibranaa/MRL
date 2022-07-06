@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookShelf;
 use App\Http\Requests\StoreBookShelfRequest;
-use App\Http\Requests\UpdateBookShelfRequest;
+use Inertia\Inertia;
 
 class BookShelfController extends Controller
 {
@@ -20,7 +20,11 @@ class BookShelfController extends Controller
      */
     public function index()
     {
-        $bookShelf = BookShelf::all();
+        $bookShelf = BookShelf::all()->where('user','=',auth()->user()->id);
+        return Inertia::render('BookShelf',[
+            'auth' => auth()->user(),
+            'items' => $bookShelf
+        ]);
     }
 
     /**
@@ -43,45 +47,15 @@ class BookShelfController extends Controller
     {
         $bookShelf = new BookShelf();
         $bookShelf['user'] = auth()->user()->id;
-        $bookShelf['book'] = $request->book;
-        $bookShelf['story'] = $request->story;
+        if ($request->item_type == 'book') {
+            $bookShelf['book'] = $request->item_id;
+        }else{
+
+            $bookShelf['story'] = $request->item_id;
+        }
+        $bookShelf['status'] = $request->status;
         $bookShelf->save();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\BookShelf  $bookShelf
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BookShelf $bookShelf)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\BookShelf  $bookShelf
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BookShelf $bookShelf)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBookShelfRequest  $request
-     * @param  \App\Models\BookShelf  $bookShelf
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateBookShelfRequest $request, BookShelf $bookShelf)
-    {
-        $bookShelf['book'] = $request->book;
-        $bookShelf['story'] = $request->story;
-        $bookShelf->save();
+        return redirect(url('bookshelf'));
     }
 
     /**
