@@ -27,7 +27,7 @@ function BookShelf(props) {
                     {title}
                 </Table.Cell>
                 <Table.Cell>{typee}</Table.Cell>
-                <Table.Cell>{props.statuses[e.status - 1].name}</Table.Cell>
+                <Table.Cell>Reading</Table.Cell>
                 <Table.Cell>
                     <Button
                         onClick={() => {

@@ -75,7 +75,7 @@ class StoryController extends Controller
      */
     public function show(Story $story)
     {
-        return Inertia::render('BookContents',[
+        return Inertia::render('BookDetails',[
             'item' => $story,
             'auth' => auth()->user(),
         ]);

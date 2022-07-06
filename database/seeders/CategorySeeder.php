@@ -29,6 +29,9 @@ class CategorySeeder extends Seeder
         ]);
         Category::create([
             'id' => 4,
+            'name' => 'Fantasy'
+        ]);Category::create([
+            'id' => 5,
             'name' => 'Other'
         ]);
     }

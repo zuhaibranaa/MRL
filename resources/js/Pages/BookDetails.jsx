@@ -3,8 +3,25 @@ import Footer from "@/Components/Footer";
 import Model from "@/Components/Model";
 import Navbar from "@/Components/Navbar";
 import { Card } from "flowbite-react";
+import { useForm } from "@inertiajs/inertia-react";
+
 import React from "react";
 function BookDetails(props) {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        item_id: props.item.id,
+        user_id: props.auth.id,
+        item_type: props.type,
+    });
+    const submit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("item_id", data.item_id);
+        formData.append("item_name", data.user_id);
+        formData.append("item_type", data.item_type);
+        post(base_url + "/bookshelf/", formData, {
+            forceFormData: true,
+        });
+    };
     return (
         <>
             <Navbar props={{ ...props }} />
@@ -53,7 +70,11 @@ function BookDetails(props) {
                                         {props.item.author}
                                     </span>
 
-                                    <Model props={{ ...props }} />
+                                    <form onSubmit={submit}>
+                                        <Button processing={processing}>
+                                            Add To Bookshelf
+                                        </Button>
+                                    </form>
                                 </div>
                             </Card>
                         </div>
