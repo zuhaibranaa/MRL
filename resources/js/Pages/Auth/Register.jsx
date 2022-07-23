@@ -7,6 +7,7 @@ import ValidationErrors from "@/Components/ValidationErrors";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import { Inertia } from "@inertiajs/inertia";
 
 export default function Register(props) {
     const imageRef = useRef();
@@ -37,6 +38,7 @@ export default function Register(props) {
 
     const submit = (e) => {
         e.preventDefault();
+        console.log(imageRef.current.files[0]);
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("email", data.email);
@@ -46,7 +48,7 @@ export default function Register(props) {
         formData.append("password_confirmation", data.password_confirmation);
         formData.append("image", imageRef.current.files[0]);
 
-        post(route("register"), formData, {
+        Inertia.post(route("register"), formData, {
             forceFormData: true,
         });
     };
@@ -136,7 +138,7 @@ export default function Register(props) {
                     <div className="mt-4">
                         <label
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            htmlFor="file_input"
+                            htmlFor="image"
                         >
                             Upload image
                         </label>
@@ -144,14 +146,14 @@ export default function Register(props) {
                             className="p-1 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="file_input_help"
                             ref={imageRef}
-                            id="file_input"
+                            id="image"
                             type="file"
                         />
                         <p
                             className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                             id="file_input_help"
                         >
-                            SVG, PNG, JPG or GIF.
+                            PNG, JPG or GIF.
                         </p>
                     </div>
                     <div className="mt-4">

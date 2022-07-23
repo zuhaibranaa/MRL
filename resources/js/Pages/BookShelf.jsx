@@ -1,13 +1,6 @@
 import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
-import {
-    Head,
-    Link,
-    useForm,
-    InertiaLink,
-    Inertia,
-} from "@inertiajs/inertia-react";
-
+import { Inertia } from "@inertiajs/inertia";
 import { Button, Table } from "flowbite-react";
 import React from "react";
 
