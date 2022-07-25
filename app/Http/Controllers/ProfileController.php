@@ -35,13 +35,18 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->password != null) {
-            return 123;
-        }else {
-            return $request;
-        }
         $user = User::find(auth()->user()->id);
-        if($request->pass)
+        if ($request->password != null) {
+            $user->password = Hash::make($request->password);
+        }
+        if($request->name != null) {
+            $user->name = $request->name;
+        }
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->move(public_path().'/images/', $filename);
+            $user->image = $filename;
+        }
         return redirect()->back();
     }
 
